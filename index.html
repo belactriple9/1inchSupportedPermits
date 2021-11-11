@@ -1,0 +1,187 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Supported Permits</title>
+    <meta name="description" content="Supported Permits">
+    <meta name="author" content="Belactriple9">
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+
+    <!-- Open Graph -->
+    <meta name="og:title" content="Supported Permits" />
+    <meta name="og:url" content="https://timdeschryver.dev/posts/gridsome-social-cards" />
+    <meta name="og:description" content="Supported Permits on 1inch" />
+    <meta name="og:type" content="article" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:creator" content="@belactriple9" />
+    <meta name="twitter:title" content="Supported Permits" />
+    <meta name="twitter:description" content="Average daily $1INCH price increase" />
+    <meta name="twitter:image" content="/social.png" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="content">
+            <div>
+                <p class="text">supported permits on Ethereum</p>
+                <p class="eth transparent" id="eth"></p>
+                <p class="text">supported permits on BSC</p>
+                <p class="bsc transparent" id="bsc"></p>
+                <p class="text">supported permits on Polygon</p>
+                <p class="matic transparent" id="matic"></p>
+            </div>
+        </div>
+        <footer>By <a class="handle" href="https://twitter.com/1inch"> @1inch</a> <span class="source">(<a
+                    href="https://github.com/belactriple9/1inch-daily">source</a>)</span></footer>
+    </div>
+    </div>
+    <script>
+        function handleData(data, chain) {
+            console.log(typeof chain);
+            //page will contain a list of the token symbols with a hyperlink to  the tokens page
+            let page = "";
+            //data will be an array of objects, we'll extract the symbol and contract address
+            let chainExplorer;
+            switch (chain) {
+                case 1:
+                    chainExplorer = "https://etherscan.io/token/";
+
+                    //append page to the div for ethereum
+                    for (let i = 0; i < data.length; i++) {
+                        page += `<a href="${chainExplorer}${data[i].address}">${data[i].symbol}</a>, `;
+                    }
+                    //remove the last comma
+                    page = page.substring(0, page.length - 2);
+                    console.log(page);
+                    let eth = document.getElementById("eth");
+                    eth.innerHTML = page;
+                    eth.classList.remove("transparent");
+                    break;
+                case 56:
+                    chainExplorer = "https://bscscan.com/token/";
+
+                    //append page to the div for binance smart chain
+                    for (let i = 0; i < data.length; i++) {
+                        page += `<a href="${chainExplorer}${data[i].address}">${data[i].symbol}</a>, `;
+                    }
+                    //remove the last comma
+                    page = page.substring(0, page.length - 2);
+                    console.log(page);
+                    let bsc = document.getElementById("bsc");
+                    bsc.classList.remove("transparent");
+                    bsc.innerHTML = page;
+                    break;
+                case 137:
+                    chainExplorer = "https://polygonscan.com/token/";
+
+                    //append page to the div for polygon
+                    for (let i = 0; i < data.length; i++) {
+                        page += `<a href="${chainExplorer}${data[i].address}">${data[i].symbol}</a>, `;
+                    }
+                    //remove the last comma
+                    page = page.substring(0, page.length - 2);
+                    console.log(page);
+                    let matic = document.getElementById("matic");
+                    matic.innerHTML = page;
+                    matic.classList.remove("transparent");
+                    break;
+            }
+
+        }
+
+        fetch('https://tokens-staging.1inch.io/v1.1/1').then(res => res.json()).then(res => handleData(Object.values(res).filter(x => x.eip2612), 1));
+        fetch('https://tokens-staging.1inch.io/v1.1/56').then(res => res.json()).then(res => handleData(Object.values(res).filter(x => x.eip2612), 56));
+        fetch('https://tokens-staging.1inch.io/v1.1/137').then(res => res.json()).then(res => handleData(Object.values(res).filter(x => x.eip2612), 137));
+
+
+    </script>
+</body>
+<style>
+    body {
+        font-family: 'Special Elite', cursive;
+        background-image: linear-gradient(to right, rgba(13, 24, 42), rgba(8, 12, 21), rgba(28, 19, 38));
+    }
+
+    footer {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1rem;
+        color: white;
+    }
+
+    a:link {
+        color: inherit;
+    }
+
+    a:visited {
+        color: inherit;
+    }
+
+    .container {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+    }
+
+    .text {
+        font-size: 2rem;
+        text-align: center;
+        padding-left: 12rem;
+        padding-right: 12rem;
+        margin: 0;
+        color: white;
+    }
+
+    .eth {
+        font-size: 1.5rem;
+        text-align: center;
+        padding-left: 12rem;
+        padding-right: 12rem;
+        margin: 4rem 0 2rem 0;
+        color: white;
+        word-wrap: normal;
+    }
+
+    .bsc {
+        font-size: 1.5rem;
+        text-align: center;
+        padding-left: 12rem;
+        padding-right: 12rem;
+        margin: 4rem 0 2rem 0;
+        color: white;
+        word-wrap: normal;
+    }
+
+    .matic {
+        font-size: 1.5rem;
+        text-align: center;
+        padding: 0;
+        margin: 4rem 0 2rem 0;
+        color: white;
+        word-wrap: normal;
+
+    }
+
+    .transparent {
+        color: transparent;
+    }
+
+    .handle {
+        margin: 0 0.5rem 0 0.5rem;
+    }
+</style>
+
+</html>
