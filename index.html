@@ -36,6 +36,14 @@
                 <p class="bsc transparent" id="bsc"></p>
                 <p class="text">supported permits on Polygon</p>
                 <p class="matic transparent" id="matic"></p>
+                <p class="text">supported permits on AVAX</p>
+                <p class="avax transparent" id="avax"></p>
+                <p class="text">supported permits on Arbitrum</p>
+                <p class="arbitrum transparent" id="arbitrum"></p>
+                <p class="text">supported permits on Optimism</p>
+                <p class="optimism transparent" id="optimism"></p>
+                <p class="text">supported permits on Gnosis chain (formerly xDai)</p>
+                <p class="xdai transparent" id="xdai"></p>
             </div>
         </div>
         <footer>By <a class="handle" href="https://twitter.com/1inch"> @1inch</a> <span class="source">(<a
@@ -92,6 +100,62 @@
                     matic.innerHTML = page;
                     matic.classList.remove("transparent");
                     break;
+                case 43114:
+                    chainExplorer = "https://snowtrace.io/token/";
+
+                    //append page to the div for polygon
+                    for (let i = 0; i < data.length; i++) {
+                        page += `<a href="${chainExplorer}${data[i].address}">${data[i].symbol}</a>, `;
+                    }
+                    //remove the last comma
+                    page = page.substring(0, page.length - 2);
+                    console.log(page);
+                    let avax = document.getElementById("avax");
+                    avax.innerHTML = page;
+                    avax.classList.remove("transparent");
+                    break;
+                case 42161:
+                    chainExplorer = "https://arbiscan.com/token/";
+
+                    //append page to the div for polygon
+                    for (let i = 0; i < data.length; i++) {
+                        page += `<a href="${chainExplorer}${data[i].address}">${data[i].symbol}</a>, `;
+                    }
+                    //remove the last comma
+                    page = page.substring(0, page.length - 2);
+                    console.log(page);
+                    let arbitrum = document.getElementById("arbitrum");
+                    arbitrum.innerHTML = page;
+                    arbitrum.classList.remove("transparent");
+                    break;
+                case 10:
+                    chainExplorer = "https://optimistic.etherscan.com/token/";
+
+                    //append page to the div for polygon
+                    for (let i = 0; i < data.length; i++) {
+                        page += `<a href="${chainExplorer}${data[i].address}">${data[i].symbol}</a>, `;
+                    }
+                    //remove the last comma
+                    page = page.substring(0, page.length - 2);
+                    console.log(page);
+                    let optimism = document.getElementById("optimism");
+                    optimism.innerHTML = page;
+                    optimism.classList.remove("transparent");
+                    break;
+                case 100:
+                    chainExplorer = "https://blockscout.com/xdai/mainnet/token/";
+
+                    //append page to the div for polygon
+                    for (let i = 0; i < data.length; i++) {
+                        page += `<a href="${chainExplorer}${data[i].address}">${data[i].symbol}</a>, `;
+                    }
+                    //remove the last comma
+                    page = page.substring(0, page.length - 2);
+                    console.log(page);
+                    let xdai = document.getElementById("xdai");
+                    xdai.innerHTML = page;
+                    xdai.classList.remove("transparent");
+                    break;
             }
 
         }
@@ -99,6 +163,11 @@
         fetch('https://tokens-staging.1inch.io/v1.1/1').then(res => res.json()).then(res => handleData(Object.values(res).filter(x => x.eip2612), 1));
         fetch('https://tokens-staging.1inch.io/v1.1/56').then(res => res.json()).then(res => handleData(Object.values(res).filter(x => x.eip2612), 56));
         fetch('https://tokens-staging.1inch.io/v1.1/137').then(res => res.json()).then(res => handleData(Object.values(res).filter(x => x.eip2612), 137));
+        fetch('https://tokens-staging.1inch.io/v1.1/43114').then(res => res.json()).then(res => handleData(Object.values(res).filter(x => x.eip2612), 43114));
+        fetch('https://tokens-staging.1inch.io/v1.1/42161').then(res => res.json()).then(res => handleData(Object.values(res).filter(x => x.eip2612), 42161));
+        fetch('https://tokens-staging.1inch.io/v1.1/10').then(res => res.json()).then(res => handleData(Object.values(res).filter(x => x.eip2612), 10));
+        fetch('https://tokens-staging.1inch.io/v1.1/100').then(res => res.json()).then(res => handleData(Object.values(res).filter(x => x.eip2612), 100));
+
 
 
     </script>
@@ -178,6 +247,46 @@
         word-wrap: normal;
         font-family: 'Red Hat Mono', monospace;
 
+    }
+
+    .avax {
+        font-size: 1.5rem;
+        text-align: center;
+        padding: 0;
+        margin: 4rem 0 2rem 0;
+        color: white;
+        word-wrap: normal;
+        font-family: 'Red Hat Mono', monospace;
+    }
+
+    .arbitrum {
+        font-size: 1.5rem;
+        text-align: center;
+        padding: 0;
+        margin: 4rem 0 2rem 0;
+        color: white;
+        word-wrap: normal;
+        font-family: 'Red Hat Mono', monospace;
+    }
+
+    .optimism {
+        font-size: 1.5rem;
+        text-align: center;
+        padding: 0;
+        margin: 4rem 0 2rem 0;
+        color: white;
+        word-wrap: normal;
+        font-family: 'Red Hat Mono', monospace;
+    }
+
+    .xdai {
+        font-size: 1.5rem;
+        text-align: center;
+        padding: 0;
+        margin: 4rem 0 2rem 0;
+        color: white;
+        word-wrap: normal;
+        font-family: 'Red Hat Mono', monospace;
     }
 
     .transparent {
