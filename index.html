@@ -44,10 +44,13 @@
                 <p class="optimism transparent" id="optimism"></p>
                 <p class="text">supported permits on Gnosis chain (formerly xDai)</p>
                 <p class="xdai transparent" id="xdai"></p>
+                <p class="text">supported permits on Fantom</p>
+                <p class="fantom transparent" id="fantom"></p>
+                <p class="aurora transparent" id="aurora"></p>
             </div>
         </div>
         <footer>By <a class="handle" href="https://twitter.com/1inch"> @1inch</a> <span class="source">(<a
-                    href="https://github.com/belactriple9/1inch-daily">source</a>)</span></footer>
+                    href="https://github.com/belactriple9/1inchSupportedPermits">source</a>)</span></footer>
     </div>
     </div>
     <script>
@@ -156,6 +159,36 @@
                     xdai.innerHTML = page;
                     xdai.classList.remove("transparent");
                     break;
+                case 250:
+                    chainExplorer = "https://ftmscan.com/token/";
+                    
+                    //append page to the div for fantom
+                    for (let i = 0; i < data.length; i++) {
+                        page += `<a href="${chainExplorer}${data[i].address}">${data[i].symbol}</a>, `;
+                    }
+                    //remove the last comma
+                    page = page.substring(0, page.length - 2);
+                    console.log(page);
+                    let fantom = document.getElementById("fantom");
+                    fantom.innerHTML = page;
+                    fantom.classList.remove("transparent");
+                    break;
+                case 1313161554:
+                    chainExplorer = "https://aurorascan.dev/token/";
+                    
+                    //append page to the div for aurora
+                    for (let i = 0; i < data.length; i++) {
+                        page += `<a href="${chainExplorer}${data[i].address}">${data[i].symbol}</a>, `;
+                    }
+                    //remove the last comma
+                    page = page.substring(0, page.length - 2);
+                    console.log(page);
+                    let aurora = document.getElementById("aurora");
+                    aurora.innerHTML = page;
+                    aurora.classList.remove("transparent");
+                    break;
+                    
+                    
             }
 
         }
@@ -167,7 +200,8 @@
         fetch('https://tokens-staging.1inch.io/v1.1/42161').then(res => res.json()).then(res => handleData(Object.values(res).filter(x => x.eip2612), 42161));
         fetch('https://tokens-staging.1inch.io/v1.1/10').then(res => res.json()).then(res => handleData(Object.values(res).filter(x => x.eip2612), 10));
         fetch('https://tokens-staging.1inch.io/v1.1/100').then(res => res.json()).then(res => handleData(Object.values(res).filter(x => x.eip2612), 100));
-
+        fetch('https://tokens-staging.1inch.io/v1.1/250').then(res => res.json()).then(res => handleData(Object.values(res).filter(x => x.eip2612), 250));
+        fetch('https://tokens-staging.1inch.io/v1.1/1313161554').then(res => res.json()).then(res => handleData(Object.values(res).filter(x => x.eip2612), 1313161554));
 
 
     </script>
@@ -280,6 +314,26 @@
     }
 
     .xdai {
+        font-size: 1.5rem;
+        text-align: center;
+        padding: 0;
+        margin: 4rem 0 2rem 0;
+        color: white;
+        word-wrap: normal;
+        font-family: 'Red Hat Mono', monospace;
+    }
+    
+    .fantom {
+        font-size: 1.5rem;
+        text-align: center;
+        padding: 0;
+        margin: 4rem 0 2rem 0;
+        color: white;
+        word-wrap: normal;
+        font-family: 'Red Hat Mono', monospace;
+    }
+    
+    .aurora {
         font-size: 1.5rem;
         text-align: center;
         padding: 0;
